@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Modern MP3 player with glassmorphism design, audio visualizer, and advanced playback controls" />
+    <meta name="keywords" content="mp3 player, music player, glassmorphism, audio visualizer, react" />
+    <meta name="author" content="Glassmorphic MP3 Player" />
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Glassmorphic MP3 Player" />
+    <meta property="og:description" content="Modern MP3 player with glassmorphism design and audio visualizer" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="/og-image.png" />
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Glassmorphic MP3 Player" />
+    <meta name="twitter:description" content="Modern MP3 player with glassmorphism design and audio visualizer" />
+    <meta name="twitter:image" content="/twitter-image.png" />
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
+    <!-- Favicon variations -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#1e1b4b" />
+    <meta name="msapplication-TileColor" content="#1e1b4b" />
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="/src/main.jsx" as="script" />
+    
+    <title>Glassmorphic MP3 Player</title>
+    
+    <style>
+      /* Critical CSS for initial render */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      
+      html {
+        font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
+      }
+      
+      body {
+        margin: 0;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        overflow-x: hidden;
+      }
+      
+      #root {
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+      }
+      
+      /* Loading animation */
+      .loading-spinner {
+        width: 50px;
+        height: 50px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 1s ease-in-out infinite;
+      }
+      
+      @keyframes spin {
+        to { transform: rotate(360deg); }
+      }
+      
+      /* Glassmorphism background elements */
+      body::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: 
+          radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+          radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+        pointer-events: none;
+        z-index: -1;
+      }
+      
+      /* Animated background particles */
+      .bg-particle {
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        animation: float 6s ease-in-out infinite;
+        pointer-events: none;
+        z-index: -1;
+      }
+      
+      .bg-particle:nth-child(1) {
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+      }
+      
+      .bg-particle:nth-child(2) {
+        top: 60%;
+        left: 80%;
+        animation-delay: 2s;
+      }
+      
+      .bg-particle:nth-child(3) {
+        top: 80%;
+        left: 20%;
+        animation-delay: 4s;
+      }
+      
+      @keyframes float {
+        0%, 100% {
+          transform: translateY(0px) rotate(0deg);
+          opacity: 0.1;
+        }
+        50% {
+          transform: translateY(-20px) rotate(180deg);
+          opacity: 0.3;
+        }
+      }
+      
+      /* Smooth scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.3);
+        border-radius: 4px;
+      }
+      
+      ::-webkit-scrollbar-thumb:hover {
+        background: rgba(255, 255, 255, 0.5);
+      }
+      
+      /* Focus styles for accessibility */
+      *:focus {
+        outline: 2px solid rgba(255, 255, 255, 0.5);
+        outline-offset: 2px;
+      }
+      
+      /* Disable focus outline for mouse users */
+      .js-focus-visible *:focus:not(.focus-visible) {
+        outline: none;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Background particles -->
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    <div class="bg-particle"></div>
+    
+    <div id="root">
+      <!-- Loading fallback -->
+      <div class="loading-spinner"></div>
+    </div>
+    
+    <!-- Service Worker Registration -->
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then((registration) => {
+              console.log('SW registered: ', registration);
+            })
+            .catch((registrationError) => {
+              console.log('SW registration failed: ', registrationError);
+            });
+        });
+      }
+    </script>
+    
+    <!-- Focus management for accessibility -->
+    <script>
+      // Add focus-visible polyfill behavior
+      document.documentElement.classList.add('js-focus-visible');
+    </script>
+    
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
