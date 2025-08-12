@@ -1,0 +1,26 @@
+I cannot generate an actual MP3 audio file as that requires binary audio data. However, I can provide you with instructions on how to add a sample MP3 file to your project:
+
+**Option 1: Use a royalty-free sample**
+1. Download a short royalty-free MP3 file (30-60 seconds) from sites like:
+   - Pixabay Music
+   - Freesound.org
+   - Zapsplat (free tier)
+   - YouTube Audio Library
+
+**Option 2: Create a simple tone using online tools**
+1. Visit online-tone-generator.com
+2. Generate a 440Hz tone for 30 seconds
+3. Export as MP3
+4. Save as `demo.mp3`
+
+**Option 3: Use a text-to-speech MP3**
+1. Use any TTS service to generate "This is a demo track for the glassmorphic MP3 player"
+2. Export as MP3
+
+**File specifications for best results:**
+- Duration: 30-60 seconds
+- Bitrate: 128-320 kbps
+- Sample rate: 44.1 kHz
+- File size: Under 2MB for faster loading
+
+Once you have the MP3 file, simply place it in the `public/sample-tracks/` directory and name it `demo.mp3`. The player component will automatically load and use this file for demonstration purposes.
